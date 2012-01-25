@@ -1,7 +1,7 @@
 <? include ("inc/top.php") ?>
 
 <?
-  if (isset($op) && $op == 'login') {
+  if (isset($_REQUEST["op"]) && $_REQUEST["op"] == 'login') {
     DBOpen();
     if ($_POST['username'] == '') { 
       echo "<font color=#ff0000>Je bent je gebruikersnaam vergeten in te vullen...</font>";} 
@@ -40,7 +40,7 @@
 ?>
 
 <?
-if (isset($action) && $action == "dbinvoeren"){
+if (isset($_REQUEST["action"]) && $_REQUEST["action"] == "dbinvoeren"){
   $username =	mysql_escape_string(strip_tags($_POST['username']));
   $password =	mysql_escape_string(strip_tags($_POST['password']));
   $email	=	mysql_escape_string(strip_tags($_POST['email']));
@@ -82,8 +82,8 @@ if (isset($action) && $action == "dbinvoeren"){
     } 
   }
 ?>
-<? if (isset($action) && $action == "signup") { ?>
-<form action= <? print $PHP_SELF ?> method="post">
+<? if (isset($_GET["action"]) && $_GET["action"] == "signup") { ?>
+<form action= <? print $_SERVER['PHP_SELF']  ?> method="post">
   <table width='100%' border='0'>
     <tr> 
       <td width='10%'> <p>

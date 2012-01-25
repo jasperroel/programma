@@ -1,7 +1,7 @@
 <form method=get action=calender.php>  
   
 <?  
-if(isset($submit) && $submit) { 
+if(isset($_REQUEST["submit"]) && $_REQUEST["submit"]) { 
 $tmpd = getdate(mktime(0, 0, 0, $sel_month, 1, $sel_year));  
 $month = $tmpd["mon"];   
 $fwday= $tmpd["wday"];  

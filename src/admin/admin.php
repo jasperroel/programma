@@ -1,7 +1,7 @@
 <? include ("../inc/top.php"); ?>
 
 <? //Start code: Admin info
-if (isset($code) && $code == 'admin_info'){ ?>
+if (isset($_REQUEST["code"]) && $_REQUEST["code"] == 'admin_info'){ ?>
   Sessions:
   <pre>
     <?
@@ -28,10 +28,10 @@ if (isset($code) && $code == 'admin_info'){ ?>
 ?>
 
 <? //Start code: Groepen
-if (isset($code) && $code == 'groepen'){ ?>
+if (isset($_REQUEST["code"]) && $_REQUEST["code"] == 'groepen'){ ?>
 <p>
 <? //Start code: Groep toevoegen
-if (isset($actie) && $actie == 'groeptoevoegen'){
+if (isset($_REQUEST["actie"]) && $_REQUEST["actie"] == 'groeptoevoegen'){
 
 $groepsnaam = $_POST['groep'];
 
@@ -59,7 +59,7 @@ DBOpen();
 //Einde code: Groep toevoegen ?>
 
 <? //Start code: groep aanpassen
-if (isset($actie) && $actie == 'groepwijzig'){
+if (isset($_REQUEST["actie"]) && $_REQUEST["actie"] == 'groepwijzig'){
 
 $groepsnaam = $_POST['groepsnaam'];
 $groepsnr = $_POST['groepsnr'];
@@ -77,7 +77,7 @@ DBOpen();
 //Einde code: groep aanpassen ?>
 
 <? //Start code: groep verwijderen
-if (isset($actie) && $actie == 'groepverwijderen'){
+if (isset($_REQUEST["actie"]) && $_REQUEST["actie"] == 'groepverwijderen'){
 
 $groepsnr = $_POST['sel_groep'];
 
@@ -111,13 +111,13 @@ $resultaat = mysql_query ($query);
     <td width="65"><? echo $record->groepsnr; ?></td>
     <td><? echo $record->groepsnaam; ?></td>
 	<td width="290">
-	  <form action="<? print $PHP_SELF ?>?code=groepen&actie=groepwijzig" method="post">
+	  <form action="<? print $_SERVER['PHP_SELF']  ?>?code=groepen&actie=groepwijzig" method="post">
 	    <input name="groepsnaam" type="text" id="groepsnaam" value="<? echo $record->groepsnaam; ?>" size="35">
 		<input name="groepsnr" type="hidden" id="groepsnr" value="<? echo $record->groepsnr; ?>">
 		<input name="Wijzig" type="submit" value="Wijzig">
 	  </form>	</td>
 	<td width="20">
-	  <form action="<? print $PHP_SELF ?>?code=groepen&actie=groepverwijderen" method="post" name="frmVerwijderGroep" id="frmVerwijderGroep">
+	  <form action="<? print $_SERVER['PHP_SELF']  ?>?code=groepen&actie=groepverwijderen" method="post" name="frmVerwijderGroep" id="frmVerwijderGroep">
 		<input name="sel_groep" type="hidden" id="sel_groep" value="<? echo $record->groepsnr; ?>">
 		<input type="submit" name="Submit2" value="Verwijderen">
       </form>
@@ -130,7 +130,7 @@ $resultaat = mysql_query ($query);
       <table width="75%" border="1">
         <tr>
           <td><strong>Een nieuwe groep toevoegen</strong></td>
-          <td><form action="<? print $PHP_SELF ?>?code=groepen&amp;actie=groeptoevoegen" method="post" name="frmNieuweGroep" id="frmNieuweGroep">
+          <td><form action="<? print $_SERVER['PHP_SELF']  ?>?code=groepen&amp;actie=groeptoevoegen" method="post" name="frmNieuweGroep" id="frmNieuweGroep">
               <input name="groep" type="text" id="groep" size="30" maxlength="30">
               <input type="submit" name="Submit" value="Toevoegen">
             </form></td>
@@ -143,7 +143,7 @@ $resultaat = mysql_query ($query);
 } //Einde code: Groepen ?>
 
 <? //Start code: Speltakken
-if (isset ($code) && $code == 'speltakken'){
+if (isset ($_REQUEST["code"]) && $_REQUEST["code"] == 'speltakken'){
 DBOpen();
 
 $query = "SELECT speltaknr, speltaknaam FROM speltak ORDER BY `speltaknr`";
@@ -166,14 +166,14 @@ $resultaat = mysql_query ($query);
       <table width="75%" border="1">
         <tr>
           <td><strong>Een nieuwe speltak toevoegen</strong></td>
-          <td><form action="<? print $PHP_SELF ?>?code=speltakken&amp;actie=speltaktoevoegen" method="post" name="frmNieuweSpeltak" id="frmNieuweSpeltak">
+          <td><form action="<? print $_SERVER['PHP_SELF']  ?>?code=speltakken&amp;actie=speltaktoevoegen" method="post" name="frmNieuweSpeltak" id="frmNieuweSpeltak">
               <input name="speltak" type="text" id="groep" size="30" maxlength="30">
               <input type="submit" name="Submit" value="Toevoegen">
             </form></td>
         </tr>
         <tr>
           <td><strong>Een speltak verwijderen</strong></td>
-          <td><form action="<? print $PHP_SELF ?>?code=speltakken&actie=speltakverwijderen" method="post" name="frmVerwijderSpeltak" id="frmVerwijderSpeltak">
+          <td><form action="<? print $_SERVER['PHP_SELF']  ?>?code=speltakken&actie=speltakverwijderen" method="post" name="frmVerwijderSpeltak" id="frmVerwijderSpeltak">
               <select name="speltak" id="select2">
                 <? radio_speltak() ?>
               </select>
@@ -183,7 +183,7 @@ $resultaat = mysql_query ($query);
       </table>
       <p>
 <? //Start code: Speltak toevoegen
-if (isset($actie) && $actie ==  'speltaktoevoegen'){
+if (isset($_REQUEST["actie"]) && $_REQUEST["actie"] ==  'speltaktoevoegen'){
 
 $speltaknaam = $_POST['speltak'];
 
@@ -211,7 +211,7 @@ DBOpen();
 //Einde code: Speltak toevoegen ?>
 <?
 //Start code: Speltak verwijderen
-if (isset($actie) && $actie == 'speltakverwijderen'){
+if (isset($_REQUEST["actie"]) && $_REQUEST["actie"] == 'speltakverwijderen'){
 
 $speltaknr = $_POST['speltak'];
 

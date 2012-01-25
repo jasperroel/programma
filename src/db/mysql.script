@@ -1,0 +1,180 @@
+--
+-- Current Database: jasperroel_prog
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ jasperroel_prog;
+
+USE jasperroel_prog;
+
+--
+-- Table structure for table `gebruikers`
+--
+
+DROP TABLE IF EXISTS gebruikers;
+CREATE TABLE gebruikers (
+  user_name varchar(12) NOT NULL default '',
+  user_pass longtext NOT NULL,
+  user_mail longtext NOT NULL,
+  user_groep smallint(6) NOT NULL default '0',
+  groepsnr int(2) default NULL,
+  speltaknr int(2) default NULL,
+  UNIQUE KEY user_id (user_name)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `gebruikers`
+--
+
+
+/*!40000 ALTER TABLE gebruikers DISABLE KEYS */;
+LOCK TABLES gebruikers WRITE;
+INSERT INTO gebruikers VALUES ('jroel','-useMD5tag-','jasper_roel@yahoo.com',1,1,2);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE gebruikers ENABLE KEYS */;
+
+--
+-- Table structure for table `gebruikers_groepen`
+--
+
+DROP TABLE IF EXISTS gebruikers_groepen;
+CREATE TABLE gebruikers_groepen (
+  gebruikers_groepnr smallint(2) NOT NULL default '0',
+  gebruikers_groepnaam varchar(30) NOT NULL default ''
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `gebruikers_groepen`
+--
+
+
+/*!40000 ALTER TABLE gebruikers_groepen DISABLE KEYS */;
+LOCK TABLES gebruikers_groepen WRITE;
+INSERT INTO gebruikers_groepen VALUES (1,'admin'),(2,'user');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE gebruikers_groepen ENABLE KEYS */;
+
+--
+-- Table structure for table `groep`
+--
+
+DROP TABLE IF EXISTS groep;
+CREATE TABLE groep (
+  groepsnr int(2) NOT NULL default '0',
+  groepsnaam varchar(255) NOT NULL default '',
+  PRIMARY KEY  (groepsnr),
+  UNIQUE KEY groepsnaam (groepsnaam)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `groep`
+--
+
+
+/*!40000 ALTER TABLE groep DISABLE KEYS */;
+LOCK TABLES groep WRITE;
+INSERT INTO groep VALUES (1,'Generaal Roothaangroep'),(2,'Graaf Otto');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE groep ENABLE KEYS */;
+
+--
+-- Table structure for table `programma`
+--
+
+DROP TABLE IF EXISTS programma;
+CREATE TABLE programma (
+  nr int(3) NOT NULL default '0',
+  groepsnr longtext NOT NULL,
+  speltaknr longtext NOT NULL,
+  naam longtext NOT NULL,
+  doel longtext,
+  spelduur longtext,
+  plaats longtext,
+  materiaal longtext,
+  soort longtext,
+  aantal longtext,
+  speciaal longtext,
+  omschrijving longtext NOT NULL,
+  PRIMARY KEY  (nr)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `programma`
+--
+
+
+/*!40000 ALTER TABLE programma DISABLE KEYS */;
+LOCK TABLES programma WRITE;
+INSERT INTO programma VALUES (1,'1','2','Goudstaven race','Zoveel mogelijk goudstaven verzamelen','2 uur','Bos','** Aanwijzingen voor het vinden van de ?schat? (in de enveloppen)\r\n** Speelkaarten (alle kaarten, behalve de jokers)\r\n** 2 á 3 posten ergens in het bos\r\n** Een kluizenaar die door het bos loopt\r\n** Schat (ergens in het bos), een vuilniszak met munten\r\n** Lintje (moeten Rood, Grijs en Bruin zijn)\r\n** Goudstaven (stukjes karton)\r\n','a:2:{i:0;s:4:\"denk\";i:1;s:4:\"zoek\";}','','','Er worden 2 á 3 groepen gemaakt (te herkennen aan de verschillende lintjes), die op drie verschillende plaatsen (posten) in het bos gaan staan. De groepen krijgen in het begin 10 goudstaven mee en een spel kaarten. Je kan goudstaven verzamelen door mensen van de andere groep te tikken. De gene met de hoogste kaart, krijgt de kaart van de andere, de eventuele goudstaven (als hij die bij zich heeft), de aanwijzingen (als hij die heeft) en de schat als hij die bij zich heeft (dus het zelfde principe als bij levende stratego). Het is dus belangrijk dat je NIET getikt wordt, als je veel goudstaven of de schat bij je hebt. Als je echter een hogere kaart hebt, als de ander, dan is er niets aan de hand. \r\n\r\nJe kan dus een hele hoop mensen van de andere groep tikken en hopen dat je op deze manier een hoop goudstaven verzamelt en eventueel een paar aanwijzingen naar de schat. Je kan ook op zoek gaan naar de kluizenaar, die ergens in het bos loopt. Als je deze tikt, krijg je maximaal 1 goudstaaf. Je kan voor 3 goudstaven ook een aanwijzing kopen, om zo het zoeken naar de schat te ver gemakkelen. \r\n\r\nAls je de schat gevonden hebt levert dit je 15 goudstaven op. Alle spullen die op de post zijn, zoals goudstaven, de schat, enz zijn allemaal veilig en kunnen niet gejat worden. Aan het einde van het spel worden de goudstaven geteld en word er gekeken wie de meeste spelkaarten van de andere heeft gepakt. Door een beetje gokken worden dan gekeken welke groep winnaar is (door het tellen van de goudstaven en de speelkaarten).');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE programma ENABLE KEYS */;
+
+--
+-- Table structure for table `programma_uitvoering`
+--
+
+DROP TABLE IF EXISTS programma_uitvoering;
+CREATE TABLE programma_uitvoering (
+  programma int(3) NOT NULL default '0',
+  groepsnr int(2) NOT NULL default '0',
+  datum date NOT NULL default '0000-00-00',
+  aantal int(2) NOT NULL default '0'
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `programma_uitvoering`
+--
+
+
+/*!40000 ALTER TABLE programma_uitvoering DISABLE KEYS */;
+LOCK TABLES programma_uitvoering WRITE;
+INSERT INTO programma_uitvoering VALUES (1,1,'2009-10-10',1),(2,1,'2004-03-27',1),(2,1,'2004-10-01',1);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE programma_uitvoering ENABLE KEYS */;
+
+--
+-- Table structure for table `speltak`
+--
+
+DROP TABLE IF EXISTS speltak;
+CREATE TABLE speltak (
+  speltaknr int(2) NOT NULL default '0',
+  speltaknaam varchar(255) NOT NULL default '',
+  PRIMARY KEY  (speltaknr),
+  UNIQUE KEY speltaknaam (speltaknaam)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `speltak`
+--
+
+
+/*!40000 ALTER TABLE speltak DISABLE KEYS */;
+LOCK TABLES speltak WRITE;
+INSERT INTO speltak VALUES (1,'Bevers'),(2,'(D)WEK'),(3,'Scouts'),(4,'Explorers'),(5,'PiVo'),(6,'Blauwe Vogels'),(0,'Niet speltak gebonden');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE speltak ENABLE KEYS */;
+
+--
+-- Table structure for table `speltak_details`
+--
+
+DROP TABLE IF EXISTS speltak_details;
+CREATE TABLE speltak_details (
+  groepsnr int(2) NOT NULL default '0',
+  speltaknr int(2) NOT NULL default '0',
+  dag int(1) NOT NULL default '0',
+  tijdvan time default NULL,
+  tijdtot time default NULL,
+  PRIMARY KEY  (groepsnr,speltaknr)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `speltak_details`
+--
+
+
+/*!40000 ALTER TABLE speltak_details DISABLE KEYS */;
+LOCK TABLES speltak_details WRITE;
+INSERT INTO speltak_details VALUES (1,2,6,'10:30:00','12:30:00'),(1,3,5,NULL,NULL);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE speltak_details ENABLE KEYS */;

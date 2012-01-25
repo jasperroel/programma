@@ -1,9 +1,9 @@
 <? include ("inc/top.php"); ?>
       <?
 // Cookies!
-if (isset($sel_groep) && $sel_groep == 'negeer' || isset($sel_speltak) && $sel_speltak == 'negeer') {} else {
+if (isset($_REQUEST["sel_groep"]) && $_REQUEST["sel_groep"] == 'negeer' || isset($_REQUEST["sel_speltak"]) && $_REQUEST["sel_speltak"] == 'negeer') {} else {
 
-  if (isset($setting) && $setting == 'groep') {
+  if (isset($_REQUEST["setting"]) && $_REQUEST["setting"] == 'groep') {
     $groepsnr =  $_POST['sel_groep'];
 	$_SESSION['groepsnr'] = $groepsnr;
     
@@ -17,7 +17,7 @@ if (isset($sel_groep) && $sel_groep == 'negeer' || isset($sel_speltak) && $sel_s
 	$_SESSION['groep'] = $groep;
   }
 
-  if (isset($setting) && $setting == 'speltak') {
+  if (isset($_REQUEST["setting"]) && $_REQUEST["setting"] == 'speltak') {
     $speltaknr = $_POST['sel_speltak'];
 	$_SESSION['speltaknr'] = $speltaknr;
 
@@ -34,7 +34,7 @@ if (isset($sel_groep) && $sel_groep == 'negeer' || isset($sel_speltak) && $sel_s
   }
 }
 
-  if (isset($setting) && $setting == 'logout' || isset($setting) && $setting == 'remove') {
+  if (isset($_REQUEST["setting"]) && $_REQUEST["setting"] == 'logout' || isset($_REQUEST["setting"]) && $_REQUEST["setting"] == 'remove') {
 /* oude code
 	$_SESSION['groep'] = FALSE;
 	$_SESSION['speltak'] = FALSE;

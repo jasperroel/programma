@@ -11,6 +11,8 @@ ini_set('display_errors', 1);
 $currentURL = $_SERVER['REQUEST_URI'];
 $fullCurrentURL = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
+$baseUri = "/projects/programma";
+
 //Om de tijd/data etc in het Nederlands weer te geven
 setlocale (LC_ALL, 'nl_NL');
 

@@ -1,7 +1,7 @@
 <? include ("inc/top.php"); ?>
 
 <?
-if (isset($code) && $code == 'nieuw') {
+if (isset($_REQUEST["code"]) && $_REQUEST["code"] == 'nieuw') {
 ?>
   <h1>Programma invoeren</h1>
   <p>Dit programma is voor de 
@@ -35,9 +35,9 @@ onClick="JavaScript:volg_url('programma.php?code=date_set')">
   <p>
     <?
     // Even de variabelen goedzetten
-    if (isset($speltak)) {
+    if (isset($_SESSION["speltaknr"])) {
       DBOpen();
-      $query = "SELECT dag FROM speltak_details WHERE speltaknr = ".$speltaknr;
+      $query = "SELECT dag FROM speltak_details WHERE speltaknr = ".$_SESSION["speltaknr"];
   	  $resultaat = mysql_query ($query);
 	  $record = mysql_fetch_object($resultaat);
 	  $speltak_dagnr = $record->dag;
@@ -72,7 +72,7 @@ onClick="JavaScript:volg_url('programma.php?code=date_set')">
 ?>
 
 <? 
-if (isset($code) && $code == 'date_set') {
+if (isset($_REQUEST["code"]) && $_REQUEST["code"] == 'date_set') {
 ?>
   <p>Dit programma is voor de
     <?
@@ -208,12 +208,12 @@ echo $date ?>">
 ?>
 
 <?
-if (isset($code) && $code == 'toon') {
+if (isset($_REQUEST["code"]) && $_REQUEST["code"] == 'toon') {
   DBOpen();
-  if (!isset($programmanr)) {
+  if (!isset($_REQUEST["programmanr"])) {
     $query = "SELECT * FROM programma ORDER BY nr DESC";
   } else {
-    $query = "SELECT * FROM programma WHERE nr = $programmanr";
+    $query = "SELECT * FROM programma WHERE nr = " . $_REQUEST["programmanr"];
   }
 
 $resultaat = mysql_query ($query);
@@ -366,11 +366,11 @@ readonly='true'><? echo $record->omschrijving ?></textarea></td>
 ?>
 
 <?
-if (isset($verwijder) && $verwijder || isset($zeker) && $zeker) {
-  if ($zeker == 'ja'){
+if (isset($_REQUEST["verwijder"]) && $_REQUEST["verwijder"] || isset($_REQUEST["zeker"]) && $_REQUEST["zeker"]) {
+  if ($_REQUEST["zeker"] == 'ja'){
     if (isset($_SESSION['username']) && $_SESSION['username'] == 'jroel') {
       DBOpen();
-      $query = "DELETE FROM `programma` WHERE `nr` = '".$spelnr."'";
+      $query = "DELETE FROM `programma` WHERE `nr` = '".$_REQUEST["spelnr"]."'";
       $result = mysql_query($query) or die (mysql_error());
       echo "Oke, het programma is verwijderd... Niets meer aan te doen...";
 	} else {
@@ -384,7 +384,7 @@ adresbalk in 'zeker=ja'...";
 }
 ?>
       <?
-if (isset($code) && $code == 'invoeren') {
+if (isset($_REQUEST["code"]) && $_REQUEST["code"] == 'invoeren') {
 
 DBopen();
 
@@ -392,8 +392,8 @@ $groepsnr = $_SESSION['groepsnr'];
 $speltaknr = $_SESSION['speltaknr'];
 $nr = nieuw_programma_nummer();
 
-if (isset($soort)){
-  $soort=serialize($soort); //Maak een array
+if (isset($_REQUEST["soort"])){
+  $soort=serialize($_REQUEST["soort"]); //Maak een array
 } else {
   $soort = "";
 }
@@ -401,9 +401,10 @@ if (isset($soort)){
   //Hier wordt de query gebouwd.
   $query = "INSERT INTO programma ( `nr` , `groepsnr` , `speltaknr` , 
 `naam` , `doel` , `spelduur` , `plaats` , `materiaal` , `soort` , `aantal` 
-, `speciaal` , `omschrijving`) VALUES($nr, $groepsnr, $speltaknr, '$naam', 
-'$doel', '$spelduur', '$plaats', '$materiaal', '$soort', '$aantal', 
-'$speciaal', '$omschrijving')";
+, `speciaal` , `omschrijving`) VALUES($nr, $groepsnr, $speltaknr, '".$_REQUEST["naam"]."', 
+'".$_REQUEST["doel"]."', '".$_REQUEST["spelduur"]."', '".$_REQUEST["plaats"]."',
+'".$_REQUEST["materiaal"]."', '".$soort."', '".$_REQUEST["aantal"]."', 
+'".$_REQUEST["speciaal"]."', '".$_REQUEST["omschrijving"]."')";
   //Hier wordt het programma toegevoegd.
   $result = mysql_query($query) or die("Deze query: 
 <b>$query</b><br><br>Deze error:<b>" .mysql_error());
@@ -431,5 +432,5 @@ Bedankt!";
 }
 //Einde code = invoeren
 ?>
-      <? include ("inc/bottom.php"); ?>
 
+<? include ("inc/bottom.php"); ?>
